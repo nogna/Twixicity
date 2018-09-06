@@ -5,11 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\twitchcred.designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Resources\twitchcred.designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CodingUpAStorm.VaderSharp" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="TwitchLib" Version="2.1.5" />
   </ItemGroup>
 
 </Project>

@@ -5,16 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using TwitchToxicity;
 
-namespace TwitchToxicity
+namespace WebApplication2
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+
+            TwitchChatBot bot = new TwitchChatBot();
+            bot.Connect();
             CreateWebHostBuilder(args).Build().Run();
+
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
