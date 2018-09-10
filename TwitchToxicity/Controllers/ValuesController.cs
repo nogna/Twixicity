@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TwitchToxicity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,9 +21,14 @@ namespace WebApplication2.Controllers
 
        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id, string query)
+        public string Get([FromQuery]string query)
         {
-            return $"value {id} query = {query}";
+            
+            TwitchChatBot bot = query != null ? new TwitchChatBot(query) : new TwitchChatBot();
+            bot.Connect();
+            var average = bot.getToxicity();
+            bot.Disconnect();
+            return $"Average: {average} channel = {query}";
         }
 
         // POST api/values

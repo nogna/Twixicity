@@ -6,6 +6,7 @@ using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using VaderSharp;
 
+
 namespace TwitchToxicity
 {
     class TwitchChatBot
@@ -13,10 +14,21 @@ namespace TwitchToxicity
         TwitchClient client;
         string CHANNELNAME = "dakotaz";
         List<double> TOXICITY = new List<double>();
-        int LIST_LENGTH = 100;
+        int LIST_LENGTH = 5;
         
 
         SentimentIntensityAnalyzer analyzer = new SentimentIntensityAnalyzer();
+        private string channel;
+
+        public TwitchChatBot(string channel)
+        {
+            CHANNELNAME = channel;
+        }
+
+        public TwitchChatBot()
+        {
+
+        }
 
         internal void Connect()
         {
@@ -40,7 +52,7 @@ namespace TwitchToxicity
 
         private void onMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            // Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
+            Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
             string text = e.ChatMessage.Message;
             var results = analyzer.PolarityScores(text);
 
@@ -70,6 +82,20 @@ namespace TwitchToxicity
 
             
 
+        }
+
+        public double getToxicity()
+        {
+            while (TOXICITY.Count() <= LIST_LENGTH)
+            {
+                System.Threading.Thread.Sleep(500);
+            }
+            return TOXICITY.Average();
+        }
+
+        public int getNumberOfElements()
+        {
+            return TOXICITY.Count();
         }
 
         internal void Disconnect()

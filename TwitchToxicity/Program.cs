@@ -14,8 +14,7 @@ namespace WebApplication2
         public static void Main(string[] args)
         {
 
-            TwitchChatBot bot = new TwitchChatBot();
-            bot.Connect();
+            
             CreateWebHostBuilder(args).Build().Run();
 
         }
