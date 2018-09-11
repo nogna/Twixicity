@@ -45,7 +45,6 @@ namespace TwitchToxicity
             client.OnMessageReceived += onMessageReceived;
             client.OnJoinedChannel += onJoinedChannel;
             client.Connect();
-            Console.WriteLine("Successfully connected");
         }
 
         private void onJoinedChannel(object sender, OnJoinedChannelArgs e)
