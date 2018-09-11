@@ -55,7 +55,7 @@ namespace TwitchToxicity
 
         private void onMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
+            //Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
             string text = e.ChatMessage.Message;
 
             if (text == "!toxicity" && TOXICITY.Count() > 0)
@@ -67,20 +67,23 @@ namespace TwitchToxicity
 
 
             var results = analyzer.PolarityScores(text);
-
+            Console.WriteLine(results.Negative);
 
 
             if (results.Compound == 0)
             {
+                Console.WriteLine("Message was not added");
                 return;
             }
             
             if (TOXICITY.Count < defualtListLength)
             {
+                Console.WriteLine("Message added");
                 TOXICITY.Add(results.Compound);
             }
             else
             {
+                Console.WriteLine("Message replaced");
                 TOXICITY.Remove(0);
                 TOXICITY.Add(results.Compound);
             }
@@ -93,7 +96,7 @@ namespace TwitchToxicity
         {
             while (TOXICITY.Count() <= defualtListLength)
             {
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(50);
             }
             return TOXICITY.Average();
         }
