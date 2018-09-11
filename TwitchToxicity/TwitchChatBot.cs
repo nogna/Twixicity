@@ -12,13 +12,16 @@ namespace TwitchToxicity
     class TwitchChatBot
     {
         TwitchClient client;
-        string CHANNELNAME = "dakotaz";
+        string CHANNELNAME;
+
         List<double> TOXICITY = new List<double>();
-        int LIST_LENGTH = 5;
+        SentimentIntensityAnalyzer analyzer = new SentimentIntensityAnalyzer();
+
+
+        private readonly int defualtListLength = 5;
+        private readonly string defaultChannelName = "dakotaz";
         
 
-        SentimentIntensityAnalyzer analyzer = new SentimentIntensityAnalyzer();
-        private string channel;
 
         public TwitchChatBot(string channel)
         {
@@ -27,7 +30,7 @@ namespace TwitchToxicity
 
         public TwitchChatBot()
         {
-
+            CHANNELNAME = defaultChannelName;
         }
 
         internal void Connect()
@@ -42,19 +45,19 @@ namespace TwitchToxicity
             client.OnMessageReceived += onMessageReceived;
             client.OnJoinedChannel += onJoinedChannel;
             client.Connect();
+            Console.WriteLine("Successfully connected");
         }
 
         private void onJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            Console.WriteLine("Hey guys! I am a bot connected via TwitchLib!, connected in channel: "+ e.Channel);
-            //client.SendMessage(e.Channel, "Hey guys! I am a bot connected via TwitchLib! " + "Channel name: "+ e.Channel);
+            Console.WriteLine("Connected in channel: "+ e.Channel);
+            
         }
 
         private void onMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
             string text = e.ChatMessage.Message;
-            var results = analyzer.PolarityScores(text);
 
             if (text == "!toxicity" && TOXICITY.Count() > 0)
             {
@@ -63,16 +66,19 @@ namespace TwitchToxicity
                 return;
             }
 
+
+            var results = analyzer.PolarityScores(text);
+
+
+
             if (results.Compound == 0)
             {
                 return;
             }
-
-            var listLength = TOXICITY.Count; 
-            if (listLength < LIST_LENGTH)
+            
+            if (TOXICITY.Count < defualtListLength)
             {
                 TOXICITY.Add(results.Compound);
-                
             }
             else
             {
@@ -86,7 +92,7 @@ namespace TwitchToxicity
 
         public double getToxicity()
         {
-            while (TOXICITY.Count() <= LIST_LENGTH)
+            while (TOXICITY.Count() <= defualtListLength)
             {
                 System.Threading.Thread.Sleep(500);
             }
