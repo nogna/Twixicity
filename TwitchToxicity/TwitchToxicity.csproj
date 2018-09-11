@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="CodingUpAStorm.VaderSharp" Version="1.0.4" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="TwitchLib" Version="2.1.5" />
   </ItemGroup>
