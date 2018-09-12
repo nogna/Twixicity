@@ -15,8 +15,8 @@ export class StartpageComponent implements OnInit {
   }
 
   getApiData() {
-    console.log("HEjeje5?query=admiralbulldog");
-    const url = "https://localhost:44314/api/values/";
+    console.log("HEjeje5");
+    const url = "http://localhost:54349/api/values/5";
     this.http.get(url).subscribe(data => {this.retGetData = data});
     }
     
