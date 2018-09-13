@@ -537,6 +537,18 @@
             <param name="channelName"></param>
             <returns></returns>
         </member>
+        <member name="M:Toxicity.Controllers.ChatBotDBhandler.SaveChannel(Toxicity.Controllers.Channel)">
+            <summary>
+            Save the channel to the database
+            </summary>
+        </member>
+        <member name="M:Toxicity.Controllers.ChatBotDBhandler.validChannel(Toxicity.Controllers.Channel)">
+            <summary>
+            Check if the Channel is legit
+            </summary>
+            <param name="newChannel"></param>
+            <returns></returns>
+        </member>
         <member name="T:Toxicity.TwitchCred">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
