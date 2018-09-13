@@ -481,6 +481,62 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:Toxicity.Controllers.Channel">
+            <summary>
+            Channel with some information
+            </summary>
+        </member>
+        <member name="T:Toxicity.Controllers.ChannelController">
+            <summary>
+            This controller handles the TwitchChatbot
+            </summary>
+            
+        </member>
+        <member name="M:Toxicity.Controllers.ChannelController.getChannelToxicity(System.String)">
+            <summary>
+            Get a specific channel toxicity that is not in the database
+            </summary>
+            <param name="channelName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Toxicity.Controllers.ChannelController.Get">
+            <summary>
+            Get all the channels info we have stored in the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Toxicity.Controllers.ChannelController.Get(System.Int32)">
+            <summary>
+            Get the channel info from our database with matching id
+            </summary>
+            <param name="id">identifier for the database</param>
+            <returns></returns>
+        </member>
+        <member name="T:Toxicity.Controllers.ChatBotDBhandler">
+            <summary>
+            The class for communicating with the database
+            </summary>
+        </member>
+        <member name="M:Toxicity.Controllers.ChatBotDBhandler.getAllChannels">
+            <summary>
+            Get all the channels information currently in the database 
+            </summary>
+            <returns>A list of theese channels</returns>
+        </member>
+        <member name="M:Toxicity.Controllers.ChatBotDBhandler.getChannelinfo(System.Int32)">
+            <summary>
+            Get a specific channel from the db
+            </summary>
+            <param name="id">Unique id for each channel in the database</param>
+            <returns>The specific channel</returns>
+        </member>
+        <member name="M:Toxicity.Controllers.ChatBotDBhandler.channelExistInDB(System.String)">
+            <summary>
+            Check if the channel exists in the database and have an active value
+            </summary>
+            <param name="channelName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Toxicity.TwitchCred">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
