@@ -34,7 +34,7 @@ namespace Toxicity.Controllers
         /// <returns>The specific channel</returns>
         internal Channel getChannelinfo(int id)
         {
-            return new Channel {ChannelName="TestChannel" };
+            return new Channel {ChannelName="TestChannel"};
         }
 
         /// <summary>
@@ -58,6 +58,11 @@ namespace Toxicity.Controllers
             }
         }
 
+        /// <summary>
+        /// Check if the Channel is legit
+        /// </summary>
+        /// <param name="newChannel"></param>
+        /// <returns></returns>
         private bool validChannel(Channel newChannel)
         {
             return true;
