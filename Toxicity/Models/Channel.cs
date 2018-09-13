@@ -8,6 +8,6 @@
        
 
         public string ChannelName { get; set; } = "";
-        public double ChannelToxicity { get; set; } = -10;
+        public float ChannelToxicity { get; set; } = -10;
     }
 }

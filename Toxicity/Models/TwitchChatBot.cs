@@ -93,13 +93,13 @@ namespace TwitchToxicity
 
         }
 
-        public double getToxicity()
+        public float getToxicity()
         {
             while (TOXICITY.Count() <= defualtListLength)
             {
                 System.Threading.Thread.Sleep(50);
             }
-            return TOXICITY.Average();
+            return (float)TOXICITY.Average();
         }
 
         public int getNumberOfElements()

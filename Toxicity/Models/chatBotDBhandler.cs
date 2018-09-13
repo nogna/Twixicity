@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using Toxicity.Models;
 
@@ -62,7 +63,7 @@ namespace Toxicity.Controllers
                 channel = connection.Query<Channel>($"SELECT * FROM Channel WHERE ChannelName ='{channelName}'");
             }
 
-            if (channel != null)
+            if (channel.AsList().Count() != 0)
             {
                 return true;
             }
@@ -78,7 +79,8 @@ namespace Toxicity.Controllers
             {
                 using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionStringHelper.CnnVal("TwixicityDB")))
                 {
-                    connection.Execute($"INSERT INTO Channel ('{newChannel.ChannelName}', '{newChannel.ChannelToxicity}'");
+                    connection.Execute("INSERT INTO Channel (ChannelName, ChannelToxicity) VALUES('" + newChannel.ChannelName + "', '" + newChannel.ChannelToxicity +"')");
+                    
                 }
             }
         }

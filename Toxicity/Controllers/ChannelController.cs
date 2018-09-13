@@ -33,8 +33,19 @@ namespace Toxicity.Controllers
             {
                 return chatBotDBhandler.GetChannelinfo(channelName);
             }
+            else
+            {
+                
+                TwitchChatBot bot = new TwitchChatBot(channelName);
+                bot.Connect();
+                Console.WriteLine("bot connected");
+                float average = bot.getToxicity();
+                bot.Disconnect();
+                Channel NewChannel = new Channel { ChannelName = channelName, ChannelToxicity = (float)average };
+                chatBotDBhandler.SaveChannel(NewChannel);
+                return new List<Channel>{NewChannel};
+            }
 
-            return new List<Channel>{ };
 
         }
 
@@ -63,14 +74,7 @@ namespace Toxicity.Controllers
         
         public void Post([FromBody] string channelName)
         {
-            double average = -10;
-            TwitchChatBot bot = new TwitchChatBot(channelName);
-            bot.Connect();
-            Console.WriteLine("bot connected");
-            average = bot.getToxicity();
-            bot.Disconnect();
-            Channel NewChannel = new Channel { ChannelName = channelName, ChannelToxicity = average };
-            chatBotDBhandler.SaveChannel(NewChannel);
+           
         }
 
         // PUT: api/Channel/5
