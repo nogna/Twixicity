@@ -37,6 +37,12 @@ namespace Toxicity.Controllers
             average = bot.getToxicity();
             bot.Disconnect();
             }
+
+            else
+            {
+                chatBotDBhandler.getChannelinfo(channelName);
+            }
+
             Channel NewChannel = new Channel { ChannelName = channelName, ChannelToxicity = average };
 
             chatBotDBhandler.SaveChannel(NewChannel);

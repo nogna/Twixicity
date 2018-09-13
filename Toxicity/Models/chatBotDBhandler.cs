@@ -37,6 +37,11 @@ namespace Toxicity.Controllers
             return new Channel {ChannelName="TestChannel"};
         }
 
+        internal void getChannelinfo(string channelName)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Check if the channel exists in the database and have an active value
         /// </summary>
