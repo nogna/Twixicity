@@ -23,38 +23,27 @@ namespace Toxicity.Controllers
         /// </summary>
         /// <param name="channelName"></param>
         /// <returns></returns>
-        [Route("api/Channel/getChannelToxicity/{channelName}")]
+        [Route("api/Channel/{channelName}")]
         [HttpGet]
-        public Channel getChannelToxicity(string channelName)
+        public List<Channel> getChannelToxicity(string channelName)
         {
-            double average = -10;
+           
 
-            if (!chatBotDBhandler.channelExistInDB(channelName))
+            if (chatBotDBhandler.channelExistInDB(channelName))
             {
-            TwitchChatBot bot = new TwitchChatBot(channelName);
-            bot.Connect();
-            Console.WriteLine("bot connected");
-            average = bot.getToxicity();
-            bot.Disconnect();
+                return chatBotDBhandler.GetChannelinfo(channelName);
             }
 
-            else
-            {
-                chatBotDBhandler.getChannelinfo(channelName);
-            }
+            return new List<Channel>{ };
 
-            Channel NewChannel = new Channel { ChannelName = channelName, ChannelToxicity = average };
-
-            chatBotDBhandler.SaveChannel(NewChannel);
-
-            return NewChannel;
         }
 
         // GET: api/Channel
         /// <summary>
         /// Get all the channels info we have stored in the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All the channels in the database</returns>
+        [HttpGet]
         public List<Channel> Get()
         {
             List<Channel> channels = chatBotDBhandler.getAllChannels();
@@ -67,19 +56,27 @@ namespace Toxicity.Controllers
         /// </summary>
         /// <param name="id">identifier for the database</param>
         /// <returns></returns>
-        public Channel Get(int id)
+        //public Channel Get(int id)
+        //{
+        //    return chatBotDBhandler.getChannelinfo(id);
+        //}
+        
+        public void Post([FromBody] string channelName)
         {
-            return chatBotDBhandler.getChannelinfo(id);
-        }
-
-        // POST: api/Channel
-        public void Post([FromBody]string value)
-        {
+            double average = -10;
+            TwitchChatBot bot = new TwitchChatBot(channelName);
+            bot.Connect();
+            Console.WriteLine("bot connected");
+            average = bot.getToxicity();
+            bot.Disconnect();
+            Channel NewChannel = new Channel { ChannelName = channelName, ChannelToxicity = average };
+            chatBotDBhandler.SaveChannel(NewChannel);
         }
 
         // PUT: api/Channel/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]string channelName)
         {
+           
         }
 
         // DELETE: api/Channel/5

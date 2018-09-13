@@ -503,9 +503,9 @@
             <summary>
             Get all the channels info we have stored in the database
             </summary>
-            <returns></returns>
+            <returns>All the channels in the database</returns>
         </member>
-        <member name="M:Toxicity.Controllers.ChannelController.Get(System.Int32)">
+        <member name="M:Toxicity.Controllers.ChannelController.Post(System.String)">
             <summary>
             Get the channel info from our database with matching id
             </summary>
@@ -523,16 +523,9 @@
             </summary>
             <returns>A list of theese channels</returns>
         </member>
-        <member name="M:Toxicity.Controllers.ChatBotDBhandler.getChannelinfo(System.Int32)">
-            <summary>
-            Get a specific channel from the db
-            </summary>
-            <param name="id">Unique id for each channel in the database</param>
-            <returns>The specific channel</returns>
-        </member>
         <member name="M:Toxicity.Controllers.ChatBotDBhandler.channelExistInDB(System.String)">
             <summary>
-            Check if the channel exists in the database and have an active value
+            Returns true if exists in DB
             </summary>
             <param name="channelName"></param>
             <returns></returns>
@@ -548,6 +541,13 @@
             </summary>
             <param name="newChannel"></param>
             <returns></returns>
+        </member>
+        <member name="M:Toxicity.Models.ConnectionStringHelper.CnnVal(System.String)">
+            <summary>
+            Finds the right connectionstring with the identifier as name.
+            </summary>
+            <param name="name">The name of the connectionstring</param>
+            <returns>The connectionstring</returns>
         </member>
         <member name="T:Toxicity.TwitchCred">
             <summary>

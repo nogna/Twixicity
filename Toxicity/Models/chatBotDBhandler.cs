@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using Dapper;
+using Toxicity.Models;
 
 namespace Toxicity.Controllers
 {
@@ -24,31 +27,45 @@ namespace Toxicity.Controllers
         /// <returns>A list of theese channels</returns>
         internal List<Channel> getAllChannels()
         {
-            return new List<Channel> { };
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionStringHelper.CnnVal("TwixicityDB")))
+            {
+                var AllChannels = connection.Query<Channel>("SELECT * FROM Channel").AsList();
+                return AllChannels;
+            }
+            
+        }
+
+
+        internal List<Channel> GetChannelinfo(string channelName)
+        {
+            
+             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionStringHelper.CnnVal("TwixicityDB")))
+             {
+                 List<Channel> channel = connection.Query<Channel>($"SELECT * FROM Channel WHERE ChannelName ='{channelName}'").AsList();
+                 return channel;
+             }
+
+            
         }
 
         /// <summary>
-        /// Get a specific channel from the db
-        /// </summary>
-        /// <param name="id">Unique id for each channel in the database</param>
-        /// <returns>The specific channel</returns>
-        internal Channel getChannelinfo(int id)
-        {
-            return new Channel {ChannelName="TestChannel"};
-        }
-
-        internal void getChannelinfo(string channelName)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Check if the channel exists in the database and have an active value
+        /// Returns true if exists in DB
         /// </summary>
         /// <param name="channelName"></param>
         /// <returns></returns>
         internal bool channelExistInDB(string channelName)
         {
+            IEnumerable<Channel> channel;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionStringHelper.CnnVal("TwixicityDB")))
+            {
+                channel = connection.Query<Channel>($"SELECT * FROM Channel WHERE ChannelName ='{channelName}'");
+            }
+
+            if (channel != null)
+            {
+                return true;
+            }
             return false;
         }
 
@@ -59,7 +76,10 @@ namespace Toxicity.Controllers
         {
             if (validChannel(newChannel))
             {
-                // Save to db, 
+                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionStringHelper.CnnVal("TwixicityDB")))
+                {
+                    connection.Execute($"INSERT INTO Channel ('{newChannel.ChannelName}', '{newChannel.ChannelToxicity}'");
+                }
             }
         }
 
