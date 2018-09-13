@@ -1,6 +1,12 @@
+
+<input placeholder="Channelname"  (input)="channelname = $event.target.value"/>
+
 <button (click)="getApiData()">
   PRESS MEH
 </button>
 <p>
  {{retGetData}}
+</p>
+<p>
+  {{channelname}}
 </p>

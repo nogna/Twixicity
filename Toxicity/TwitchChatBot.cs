@@ -13,14 +13,14 @@ namespace TwitchToxicity
     class TwitchChatBot
     {
         TwitchClient client;
-        string CHANNELNAME;
+        public string CHANNELNAME;
 
         List<double> TOXICITY = new List<double>();
         SentimentIntensityAnalyzer analyzer = new SentimentIntensityAnalyzer();
 
 
         private readonly int defualtListLength = 5;
-        public readonly string defaultChannelName = "shroud";
+        private readonly string defaultChannelName = "shroud";
         
 
 
@@ -56,7 +56,7 @@ namespace TwitchToxicity
 
         private void onMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            //Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
+            Console.WriteLine("Someone wrote this message: " + e.ChatMessage.Message);
             string text = e.ChatMessage.Message;
 
             if (text == "!toxicity" && TOXICITY.Count() > 0)

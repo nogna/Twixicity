@@ -12,20 +12,25 @@ namespace Toxicity.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
+        
         // GET api/values
         public IEnumerable<string> Get()
         {
-            TwitchChatBot bot = /*query != null ? new TwitchChatBot(query) :*/ new TwitchChatBot();
-            bot.Connect();
-            var average = bot.getToxicity();
-            bot.Disconnect();
-            return new string[] { average.ToString(), bot.defaultChannelName };     
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
-        public string Get(string query)
+   
+        public string Get([FromUri] string query)
         {
-            return $"{query}";
+            Console.WriteLine("Call was made with this query: "+ query);
+            TwitchChatBot bot = query != null ? new TwitchChatBot(query) : new TwitchChatBot();
+            bot.Connect();
+            Console.WriteLine("bot connected");
+            var average = bot.getToxicity();
+            bot.Disconnect();
+            return  $"{average.ToString()} {bot.CHANNELNAME}";
+            
         }
 
         // POST api/values

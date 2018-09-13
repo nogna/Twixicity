@@ -10,14 +10,15 @@ export class StartpageComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
   public retGetData;
-
+  channelname= "";
   ngOnInit() {
   }
 
   getApiData() {
-    console.log("HEjeje5");
-    const url = "http://localhost:54349/api/values/5";
+    const url = "http://localhost:54349/api/values/?query="+this.channelname;
+    console.log('url is : ' + url);
     this.http.get(url).subscribe(data => {this.retGetData = data});
+
     }
     
   }
